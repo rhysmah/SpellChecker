@@ -81,9 +81,70 @@ class SpellChecker {
 
         // Binary Search Algorithm
 
+        // Check each word in test array
+        for (String s : test) {
+
+            int middle;                       // Middle of array section.
+            int start = 0;            // Beginning of array section.
+            int end = words.size(); // End of array section.
+            boolean wordFound = false;
+
+            while (start <= end && !wordFound) {
+                middle = (start + end) / 2;
+
+                // testWord was found in words array.
+                if (s.equals(words.get(middle))) {
+                    wordFound = true;
+                }
+
+                // testWord has greater value than
+                else if (compareWords(s, words.get(middle)) == 1) {
+                    start = middle + 1;
+                } else {
+                    end = middle - 1;
+                }
+            }
+            if (!wordFound) {
+                wordsNotFound.add(s);
+                ++count;
+            }
+        }
         elapsedTime = (System.currentTimeMillis() - startTime) * 1000;
         System.out.println("Binary Search:\t\t" + count + " words not found. " + elapsedTime + " microseconds.");
         System.out.println("Words not found:\t" + wordsNotFound);
+    }
+
+    public static int compareWords(String testWord, String compareWord) {
+
+        char[] testWordLetters    = testWord.toCharArray();
+        char[] compareWordLetters = compareWord.toCharArray();
+
+        int index  = 0;
+        int result = 0;
+        boolean sizeFound = false;
+
+
+        while (result == 0) {
+            if (testWordLetters[0] > compareWordLetters[0]) {
+                result = 1;
+                sizeFound = true;
+            }
+            else if (testWordLetters[0] < compareWordLetters[0]) {
+                result = -1;
+                sizeFound = true;
+            }
+            ++index;
+        }
+        if (!sizeFound) {
+            if (testWord.length() < compareWord.length()) {
+                result = -1;
+            }
+            else {
+                result = 1;
+            }
+        }
+
+        return result;
     }
 
     /*
