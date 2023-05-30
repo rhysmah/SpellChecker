@@ -45,18 +45,17 @@ class SpellChecker {
             boolean matchFound = false;
 
             for (String word : words) {      // For each testWord, loop through all words.
-                if (word.equals(testWord)) { // If there's a match, set a flag and break the loop.
+                if (word.equals(testWord)) { // If there's a match, set a flag and break loop.
                     matchFound = true;
                     break;
                 }
             }
-            // If no match found, add testWord to array.
+            // If no match found, add testWord to array and increment count.
             if (!matchFound) {
                 wordsNotFound.add(testWord);
                 ++count;
             }
         }
-
         elapsedTime = (System.currentTimeMillis() - startTime) * 1000;
         System.out.println("Sequential Search:\t" + count + " words not found. " + elapsedTime + " microseconds.");
         System.out.println("Words not found:\t" + wordsNotFound);
@@ -71,13 +70,16 @@ class SpellChecker {
      *  Efficiency : O(nlogn)
      */
     static void binSearch(ArrayList<String> test, ArrayList<String> words) {
-        double startTime, elapsedTime;
-        ArrayList <String> wordsNotFound	= new ArrayList<>();
-        int count 				= 0;
+
+        double startTime;
+        double elapsedTime;
+
+        ArrayList <String> wordsNotFound = new ArrayList<>();
+        int count = 0;
 
         startTime = System.currentTimeMillis();
 
-        //Implement binary Search
+        // Binary Search Algorithm
 
         elapsedTime = (System.currentTimeMillis() - startTime) * 1000;
         System.out.println("Binary Search:\t\t" + count + " words not found. " + elapsedTime + " microseconds.");
@@ -87,13 +89,13 @@ class SpellChecker {
     /*
      * main method
      */
-    public static void main(String[] args) throws FileNotFoundException
-    {
+    public static void main(String[] args) throws FileNotFoundException {
+
         ArrayList <String> test  = read("src/lab3_testdata.txt");
         ArrayList <String> words = read("src/lab3_wordlist.txt");
 
         seqSearch(test, words);
         System.out.println();
-//        binSearch(test,words);
+        binSearch(test,words);
     }
 }
